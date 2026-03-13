@@ -8,7 +8,14 @@
     <author>
       <name>wt</name>
     </author>
-    <updated>2026-03-13T07:47:30.488Z</updated>
+    <updated>2026-03-13T09:10:06.000Z</updated>
+    <entry>
+        <id>http://example.com/2026/03/13/test/</id>
+        <title>test</title>
+        <link rel="alternate" href="http://example.com/2026/03/13/test/"/>
+        <content type="html"></content>
+        <updated>2026-03-13T09:10:06.000Z</updated>
+    </entry>
     <entry>
         <id>http://example.com/2026/03/13/hello-world/</id>
         <title>Hello World</title>
