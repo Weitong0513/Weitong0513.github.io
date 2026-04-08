@@ -1,0 +1,717 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="weitong's Blog" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="weitong's Blog" type="application/atom+xml"><link rel="alternate" type="application/json" title="weitong's Blog" href="http://example.com/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/nyx-player-XRIMBPKT.js"></link><link rel="modulepreload" href="/js/copy-tex-TVYOVUOZ.js"></link><link rel="modulepreload" href="/js/post-2RCFUWZW.js"></link><link rel="modulepreload" href="/js/chunk-YA6O26CE.js"></link><link rel="modulepreload" href="/js/index.esm-6WUGFK3P.js"></link><link rel="modulepreload" href="/js/chunk-3D523H76.js"></link><link rel="modulepreload" href="/js/chunk-SK7HHSJC.js"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="./assets/cover6.jpg" as="image" fetchpriority="high"><link rel="preload" href="./assets/cover1.jpg" as="image" fetchpriority="high"><link rel="preload" href="./assets/cover5.jpg" as="image" fetchpriority="high"><link rel="preload" href="./assets/cover4.jpg" as="image" fetchpriority="high"><link rel="preload" href="./assets/cover2.jpg" as="image" fetchpriority="high"><link rel="preload" href="./assets/cover6.jpg" as="image" fetchpriority="high"><meta name="keywords" content="Agent"/><link rel="canonical" href="http://example.com/2026/04/08/Langchain/"><link rel="stylesheet" href="/css/post.css?v=0.5.4"><link rel="stylesheet" href="/css/mermaid.css?v=0.5.4"><!-- 临时处理--><link rel="stylesheet" media="none" onload="this.media='all'" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><title>Langchain</title><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="pagefind_mount"></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">Langchain</h1><div class="meta"><span class="item" title="创建时间：2026-04-08 15:24:21"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-04-08T15:24:21+08:00">2026-04-08</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>18k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>17 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">游于艺</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><ul><li class="item" style="background-image: url(&quot;./assets/cover6.jpg&quot;);"></li><li class="item" style="background-image: url(&quot;./assets/cover1.jpg&quot;);"></li><li class="item" style="background-image: url(&quot;./assets/cover5.jpg&quot;);"></li><li class="item" style="background-image: url(&quot;./assets/cover4.jpg&quot;);"></li><li class="item" style="background-image: url(&quot;./assets/cover2.jpg&quot;);"></li><li class="item" style="background-image: url(&quot;./assets/cover6.jpg&quot;);"></li></ul></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" data-pagefind-body="data-pagefind-body" lang="zh-CN"><link itemprop="mainEntityOfPage" href="http://example.com/2026/04/08/Langchain/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.jpg"/><meta itemprop="name" content="wt"/><meta itemprop="description" content=", "/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="weitong's Blog"/></span><div class="body md" itemprop="articleBody"><p>LangChain 主要关注<strong>线性工作流（通过链）或不同的 AI Agent 模式</strong>，而 LangGraph 则专注于<strong>创建更灵活、细粒度的、基于流程的工作流</strong>，其中可以包含 AI Agent、工具调用、过程式代码等。</p>
+<p>总体而言，<strong>LangChain 的学习曲线相对较低</strong>，因为它提供了更多的<strong>抽象封装</strong>和<strong>预定义配置</strong>，这使得 LangChain 更容易应用于简单的使用场景。而 LangGraph 则允许<strong>对工作流设计进行更细粒度的定制</strong>，这意味着它的<strong>抽象程度较低，开发者需要学习更多内容才能有效使用</strong>。</p>
+<h1 id="langchain"><a class="anchor" href="#langchain">#</a> LangChain</h1>
+<p>LangChain 提供对数百种 LLM 和数千种其他集成的支持。这些集成存在于独立的提供者包中。</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span># 安装 OpenAI 集成</span></span>
+<span class="line"><span>pip install -U langchain-openai</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 安装 Anthropic 集成</span></span>
+<span class="line"><span>pip install -U langchain-anthropic</span></span></code></pre>
+<h2 id="快速入门"><a class="anchor" href="#快速入门">#</a> 快速入门</h2>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain_openai import ChatOpenAI</span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>deepseek = ChatOpenAI(</span></span>
+<span class="line"><span>    model="deepseek-chat",</span></span>
+<span class="line"><span>    api_key="",  # 或从 os.environ["DEEPSEEK_API_KEY"] 读</span></span>
+<span class="line"><span>    base_url="https://api.deepseek.com",</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>def get_weather(city: str) -> str:</span></span>
+<span class="line"><span>    """获取指定城市的天气。"""</span></span>
+<span class="line"><span>    return f"&#123;city&#125;总是阳光明媚！"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model=deepseek,</span></span>
+<span class="line"><span>    tools=[get_weather],</span></span>
+<span class="line"><span>    system_prompt="你是一个乐于助人的助手",</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 运行代理</span></span>
+<span class="line"><span>agent.invoke(</span></span>
+<span class="line"><span>    &#123;"messages": [&#123;"role": "user", "content": "旧金山的天气怎么样"&#125;]&#125;</span></span>
+<span class="line"><span>)</span></span></code></pre>
+<h2 id="核心组件"><a class="anchor" href="#核心组件">#</a> 核心组件</h2>
+<h3 id="智能体"><a class="anchor" href="#智能体">#</a> 智能体</h3>
+<h4 id="动态模型"><a class="anchor" href="#动态模型">#</a> 动态模型</h4>
+<p>middle ware的作用</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>User Input </span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>[ Middleware A ]</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>[ Middleware B ]</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>LLM</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>[ Middleware B ]</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>[ Middleware A ]</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Output</span></span></code></pre>
+<p>每一层 middleware 都可以：</p>
+<ul>
+<li>修改输入（prompt rewriting）</li>
+<li>记录日志（logging）</li>
+<li>控制行为（限流 / 权限）</li>
+<li>修改输出（post-processing）</li>
+</ul>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain_openai import ChatOpenAI</span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.agents.middleware import wrap_model_call, ModelRequest, ModelResponse</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>basic_model = ChatOpenAI(model="gpt-4o-mini")</span></span>
+<span class="line"><span>advanced_model = ChatOpenAI(model="gpt-4o")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@wrap_model_call</span></span>
+<span class="line"><span>def dynamic_model_selection(request: ModelRequest, handler) -> ModelResponse:</span></span>
+<span class="line"><span>    """根据对话复杂性选择模型。"""</span></span>
+<span class="line"><span>    message_count = len(request.state["messages"])</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if message_count > 10:</span></span>
+<span class="line"><span>        # 对较长的对话使用高级模型</span></span>
+<span class="line"><span>        model = advanced_model</span></span>
+<span class="line"><span>    else:</span></span>
+<span class="line"><span>        model = basic_model</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    request.model = model</span></span>
+<span class="line"><span>    return handler(request)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model=basic_model,  # 默认模型</span></span>
+<span class="line"><span>    tools=tools,</span></span>
+<span class="line"><span>    middleware=[dynamic_model_selection]</span></span>
+<span class="line"><span>)</span></span></code></pre>
+<h4 id="工具"><a class="anchor" href="#工具">#</a> 工具</h4>
+<p>自定义工具错误的处理方式</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.agents.middleware import wrap_tool_call</span></span>
+<span class="line"><span>from langchain_core.messages import ToolMessage</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@wrap_tool_call</span></span>
+<span class="line"><span>def handle_tool_errors(request, handler):</span></span>
+<span class="line"><span>    """使用自定义消息处理工具执行错误。"""</span></span>
+<span class="line"><span>    try:</span></span>
+<span class="line"><span>        return handler(request)</span></span>
+<span class="line"><span>    except Exception as e:</span></span>
+<span class="line"><span>        # 向模型返回自定义错误消息</span></span>
+<span class="line"><span>        return ToolMessage(</span></span>
+<span class="line"><span>            content=f"工具错误：请检查您的输入并重试。(&#123;str(e)&#125;)",</span></span>
+<span class="line"><span>            tool_call_id=request.tool_call["id"]</span></span>
+<span class="line"><span>        )</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model="openai:gpt-4o",</span></span>
+<span class="line"><span>    tools=[search, get_weather],</span></span>
+<span class="line"><span>    middleware=[handle_tool_errors]</span></span>
+<span class="line"><span>)</span></span></code></pre>
+<h5 id="react-循环中的工具使用"><a class="anchor" href="#react-循环中的工具使用">#</a> ReAct 循环中的工具使用</h5>
+<p>智能体遵循 ReAct（“推理 + 行动”）模式</p>
+<h5 id="动态系统提示"><a class="anchor" href="#动态系统提示">#</a> 动态系统提示</h5>
+<p><a target="_blank" rel="noopener" href="https://reference.langchain.com/python/langchain/middleware/#langchain.agents.middleware.dynamic_prompt"><code>@dynamic_prompt</code></a> 装饰器创建中间件，根据模型请求动态生成系统提示：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from typing import TypedDict</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.agents.middleware import dynamic_prompt, ModelRequest</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class Context(TypedDict):</span></span>
+<span class="line"><span>    user_role: str</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@dynamic_prompt</span></span>
+<span class="line"><span>def user_role_prompt(request: ModelRequest) -> str:</span></span>
+<span class="line"><span>    """根据用户角色生成系统提示。"""</span></span>
+<span class="line"><span>    user_role = request.runtime.context.get("user_role", "user")</span></span>
+<span class="line"><span>    base_prompt = "你是一个有帮助的助手。"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if user_role == "expert":</span></span>
+<span class="line"><span>        return f"&#123;base_prompt&#125; 提供详细的技术响应。"</span></span>
+<span class="line"><span>    elif user_role == "beginner":</span></span>
+<span class="line"><span>        return f"&#123;base_prompt&#125; 简单解释概念，避免使用行话。"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return base_prompt</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model="openai:gpt-4o",</span></span>
+<span class="line"><span>    tools=[web_search],</span></span>
+<span class="line"><span>    middleware=[user_role_prompt],</span></span>
+<span class="line"><span>    context_schema=Context</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 系统提示将根据上下文动态设置</span></span>
+<span class="line"><span>result = agent.invoke(</span></span>
+<span class="line"><span>    &#123;"messages": [&#123;"role": "user", "content": "解释机器学习"&#125;]&#125;,</span></span>
+<span class="line"><span>    context=&#123;"user_role": "expert"&#125;</span></span>
+<span class="line"><span>)</span></span></code></pre>
+<ul>
+<li>agent中有 context_schema 作为基本的参数，可以自己设置上下文的格式</li>
+<li>把user_role_promot作为middle ware</li>
+</ul>
+<h5 id="结构化输出策略"><a class="anchor" href="#结构化输出策略">#</a> 结构化输出策略</h5>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from pydantic import BaseModel</span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.agents.structured_output import ToolStrategy</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class ContactInfo(BaseModel):</span></span>
+<span class="line"><span>    name: str</span></span>
+<span class="line"><span>    email: str</span></span>
+<span class="line"><span>    phone: str</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model="openai:gpt-4o-mini",</span></span>
+<span class="line"><span>    tools=[search_tool],</span></span>
+<span class="line"><span>    response_format=ToolStrategy(ContactInfo)</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>result = agent.invoke(&#123;</span></span>
+<span class="line"><span>    "messages": [&#123;"role": "user", "content": "从以下内容提取联系信息：John Doe, john@example.com, (555) 123-4567"&#125;]</span></span>
+<span class="line"><span>&#125;)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>result["structured_response"]</span></span>
+<span class="line"><span># ContactInfo(name='John Doe', email='john@example.com', phone='(555) 123-4567')</span></span></code></pre>
+<ul>
+<li>调用 ToolStrategy</li>
+<li>agent中的参数是 response_format</li>
+</ul>
+<h4 id="记忆"><a class="anchor" href="#记忆">#</a> 记忆</h4>
+<p>智能体通过<strong>消息状态</strong>自动维护对话历史。</p>
+<p>可以配置智能体使用自定义状态模式，在对话期间记住额外信息。</p>
+<ol>
+<li>通过 <a target="_blank" rel="noopener" href="https://langchain-doc.cn/v1/python/langchain/middleware">中间件</a>（推荐）</li>
+<li>通过 <a target="_blank" rel="noopener" href="https://reference.langchain.com/python/langchain/agents/#langchain.agents.create_agent"><code>create_agent</code></a> 上的 <a target="_blank" rel="noopener" href="https://reference.langchain.com/python/langchain/middleware/#langchain.agents.middleware.AgentMiddleware.state_schema"><code>state_schema</code></a></li>
+</ol>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>User Input</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>State 初始化（messages + user_preferences）</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Middleware.before_model()</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>LLM（决策：要不要调用 tool）</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Tool（可能执行）</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Middleware.after_model()（如果有）</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>State 更新</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>返回结果</span></span></code></pre>
+<p>通过中间件定义</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.agents import AgentState</span></span>
+<span class="line"><span>from langchain.agents.middleware import AgentMiddleware</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class CustomState(AgentState):</span></span>
+<span class="line"><span>    user_preferences: dict</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class CustomMiddleware(AgentMiddleware):</span></span>
+<span class="line"><span>    state_schema = CustomState</span></span>
+<span class="line"><span>    tools = [tool1, tool2]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    def before_model(self, state: CustomState, runtime) -> dict[str, Any] | None:</span></span>
+<span class="line"><span>        ...</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model,</span></span>
+<span class="line"><span>    tools=tools,</span></span>
+<span class="line"><span>    middleware=[CustomMiddleware()]</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 智能体现在可以跟踪消息之外的额外状态</span></span>
+<span class="line"><span>result = agent.invoke(&#123;</span></span>
+<span class="line"><span>    "messages": [&#123;"role": "user", "content": "我更喜欢技术性解释"&#125;],</span></span>
+<span class="line"><span>    "user_preferences": &#123;"style": "technical", "verbosity": "detailed"&#125;,</span></span>
+<span class="line"><span>&#125;)</span></span></code></pre>
+<ul>
+<li><code>user_preferences</code>里面的字段，代表用户偏好</li>
+</ul>
+<blockquote>
+<p>state和memory的区别？</p>
+<table>
+<thead>
+<tr>
+<th>state</th>
+<th>memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每次 agent.invoke() <strong>重新创建</strong></td>
+<td><strong>跨多次 invoke 存在</strong></td>
+</tr>
+<tr>
+<td>存在于内存（runtime）</td>
+<td>可以持久化（数据库 / 向量库）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>memory →（加载）→ state →（middleware）→ prompt → LLM</p>
+<ul>
+<li>memory 是“仓库”</li>
+<li>state 是“工作区”</li>
+<li>prompt 是“输入”</li>
+</ul>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>state = &#123;</span></span>
+<span class="line"><span>   "messages": [...],</span></span>
+<span class="line"><span>   </span></span>
+<span class="line"><span>   # 用户层</span></span>
+<span class="line"><span>   "user_preferences": &#123;</span></span>
+<span class="line"><span>       "style": "technical"</span></span>
+<span class="line"><span>   &#125;,</span></span>
+<span class="line"><span>   </span></span>
+<span class="line"><span>   # Agent 内部</span></span>
+<span class="line"><span>   "plan": &#123;</span></span>
+<span class="line"><span>       "goal": "解释 Transformer",</span></span>
+<span class="line"><span>       "step": 1</span></span>
+<span class="line"><span>   &#125;,</span></span>
+<span class="line"><span>   </span></span>
+<span class="line"><span>   # 工具层</span></span>
+<span class="line"><span>   "tool_context": &#123;</span></span>
+<span class="line"><span>       "allowed_tools": ["search"]</span></span>
+<span class="line"><span>   &#125;,</span></span>
+<span class="line"><span>   </span></span>
+<span class="line"><span>   # memory 注入</span></span>
+<span class="line"><span>   "retrieved_docs": [</span></span>
+<span class="line"><span>       "Transformer uses attention..."</span></span>
+<span class="line"><span>   ]</span></span>
+<span class="line"><span>&#125;</span></span></code></pre>
+</blockquote>
+<h4 id="流式传输"><a class="anchor" href="#流式传输">#</a> 流式传输</h4>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>for chunk in agent.stream(&#123;</span></span>
+<span class="line"><span>    "messages": [&#123;"role": "user", "content": "搜索 AI 新闻并总结发现"&#125;]</span></span>
+<span class="line"><span>&#125;, stream_mode="values"):</span></span>
+<span class="line"><span>    # 每个块包含该时间点的完整状态</span></span>
+<span class="line"><span>    latest_message = chunk["messages"][-1]</span></span>
+<span class="line"><span>    if latest_message.content:</span></span>
+<span class="line"><span>        print(f"智能体：&#123;latest_message.content&#125;")</span></span>
+<span class="line"><span>    elif latest_message.tool_calls:</span></span>
+<span class="line"><span>        print(f"正在调用工具：&#123;[tc['name'] for tc in latest_message.tool_calls]&#125;")</span></span></code></pre>
+<h3 id="消息"><a class="anchor" href="#消息">#</a> 消息</h3>
+<p><strong>消息类型</strong></p>
+<ul>
+<li>系统消息 - 告诉模型如何行为并为交互提供上下文</li>
+<li>人类消息 - 表示用户输入和与模型的交互</li>
+<li>AI 消息 - <strong>模型生成的响应，包括文本内容、工具调用和元数据</strong></li>
+<li>工具消息 - 表示工具调用的输出</li>
+</ul>
+<h3 id="工具-2"><a class="anchor" href="#工具-2">#</a> 工具</h3>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>@tool("calculator", description="Performs arithmetic calculations. Use this for any math problems.")</span></span>
+<span class="line"><span>def calc(expression: str) -> str:</span></span>
+<span class="line"><span>    """Evaluate mathematical expressions."""</span></span>
+<span class="line"><span>    return str(eval(expression))</span></span></code></pre>
+<ul>
+<li>使用 <strong><a target="_blank" rel="noopener" href="https://langchain-doc.cn/v1/python/langchain/%5Bhttps:/reference.langchain.com/python/langchain/tools/#langchain.tools.tool%5D(https://reference.langchain.com/python/langchain/tools/#langchain.tools.tool)"><code>@tool</code></a></strong> 装饰器</li>
+<li>默认情况下，函数的 <strong>文档字符串</strong>（docstring）会成为工具的描述，帮助模型理解何时使用它</li>
+</ul>
+<h4 id="访问上下文"><a class="anchor" href="#访问上下文">#</a> 访问上下文</h4>
+<p>工具可以通过 <code>ToolRuntime</code> 参数访问运行时信息，该参数提供：</p>
+<ul>
+<li><strong>State（状态）</strong> - 流经执行的可变数据（消息、计数器、自定义字段）</li>
+<li><strong>Context（上下文）</strong> - 不可变的配置，如用户 ID、会话详细信息或特定于应用程序的配置</li>
+<li><strong>Store（存储）</strong> - 跨对话的持久长期记忆</li>
+<li><strong>Stream Writer（流写入器）</strong> - 在工具执行时流式传输自定义更新</li>
+<li><strong>Config（配置）</strong> - 执行的 <code>RunnableConfig</code></li>
+<li><strong>Tool Call ID（工具调用 ID）</strong> - 当前工具调用的 ID</li>
+</ul>
+<h4 id="toolruntime"><a class="anchor" href="#toolruntime">#</a> ToolRuntime</h4>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.tools import tool, ToolRuntime</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Access the current conversation state</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def summarize_conversation(</span></span>
+<span class="line"><span>    runtime: ToolRuntime</span></span>
+<span class="line"><span>) -> str:</span></span>
+<span class="line"><span>    """Summarize the conversation so far."""</span></span>
+<span class="line"><span>    messages = runtime.state["messages"]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    human_msgs = sum(1 for m in messages if m.__class__.__name__ == "HumanMessage")</span></span>
+<span class="line"><span>    ai_msgs = sum(1 for m in messages if m.__class__.__name__ == "AIMessage")</span></span>
+<span class="line"><span>    tool_msgs = sum(1 for m in messages if m.__class__.__name__ == "ToolMessage")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return f"Conversation has &#123;human_msgs&#125; user messages, &#123;ai_msgs&#125; AI responses, and &#123;tool_msgs&#125; tool results"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Access custom state fields</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def get_user_preference(</span></span>
+<span class="line"><span>    pref_name: str,</span></span>
+<span class="line"><span>    runtime: ToolRuntime  # ToolRuntime parameter is not visible to the model</span></span>
+<span class="line"><span>) -> str:</span></span>
+<span class="line"><span>    """Get a user preference value."""</span></span>
+<span class="line"><span>    preferences = runtime.state.get("user_preferences", &#123;&#125;)</span></span>
+<span class="line"><span>    return preferences.get(pref_name, "Not set")</span></span></code></pre>
+<ul>
+<li>
+<p>summarize_conversation：</p>
+<p>首先从当前对话状态中取出所有消息</p>
+<p>统计各种类型的消息数量：user AI tool</p>
+<p>返回统计结果</p>
+</li>
+<li>
+<p>get_user_preference: 从 state 的 user_preferences 里查一个字段</p>
+</li>
+</ul>
+<h4 id="command"><a class="anchor" href="#command">#</a> Command</h4>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langgraph.types import Command</span></span>
+<span class="line"><span>from langchain.messages import RemoveMessage</span></span>
+<span class="line"><span>from langgraph.graph.message import REMOVE_ALL_MESSAGES</span></span>
+<span class="line"><span>from langchain.tools import tool, ToolRuntime</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Update the conversation history by removing all messages</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def clear_conversation() -> Command:</span></span>
+<span class="line"><span>    """Clear the conversation history."""</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return Command(</span></span>
+<span class="line"><span>        update=&#123;</span></span>
+<span class="line"><span>            "messages": [RemoveMessage(id=REMOVE_ALL_MESSAGES)],</span></span>
+<span class="line"><span>        &#125;</span></span>
+<span class="line"><span>    )</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Update the user_name in the agent state</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def update_user_name(</span></span>
+<span class="line"><span>    new_name: str,</span></span>
+<span class="line"><span>    runtime: ToolRuntime</span></span>
+<span class="line"><span>) -> Command:</span></span>
+<span class="line"><span>    """Update the user's name."""</span></span>
+<span class="line"><span>    return Command(update=&#123;"user_name": new_name&#125;)</span></span></code></pre>
+<p>tool → return Command</p>
+<h4 id="context"><a class="anchor" href="#context">#</a> Context</h4>
+<p>通过 <code>runtime.context</code> 访问<strong>不可变</strong>的配置和上下文数据，例如用户 ID、会话详细信息或特定于应用程序的配置。</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from dataclasses import dataclass</span></span>
+<span class="line"><span>from langchain_openai import ChatOpenAI</span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.tools import tool, ToolRuntime</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>USER_DATABASE = &#123;</span></span>
+<span class="line"><span>    "user123": &#123;</span></span>
+<span class="line"><span>        "name": "Alice Johnson",</span></span>
+<span class="line"><span>        "account_type": "Premium",</span></span>
+<span class="line"><span>        "balance": 5000,</span></span>
+<span class="line"><span>        "email": "alice@example.com"</span></span>
+<span class="line"><span>    &#125;,</span></span>
+<span class="line"><span>    "user456": &#123;</span></span>
+<span class="line"><span>        "name": "Bob Smith",</span></span>
+<span class="line"><span>        "account_type": "Standard",</span></span>
+<span class="line"><span>        "balance": 1200,</span></span>
+<span class="line"><span>        "email": "bob@example.com"</span></span>
+<span class="line"><span>    &#125;</span></span>
+<span class="line"><span>&#125;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@dataclass</span></span>
+<span class="line"><span>class UserContext:</span></span>
+<span class="line"><span>    user_id: str</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def get_account_info(runtime: ToolRuntime[UserContext]) -> str:</span></span>
+<span class="line"><span>    """Get the current user's account information."""</span></span>
+<span class="line"><span>    user_id = runtime.context.user_id</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if user_id in USER_DATABASE:</span></span>
+<span class="line"><span>        user = USER_DATABASE[user_id]</span></span>
+<span class="line"><span>        return f"Account holder: &#123;user['name']&#125;\nType: &#123;user['account_type']&#125;\nBalance: $&#123;user['balance']&#125;"</span></span>
+<span class="line"><span>    return "User not found"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>model = ChatOpenAI(model="gpt-4o")</span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model,</span></span>
+<span class="line"><span>    tools=[get_account_info],</span></span>
+<span class="line"><span>    context_schema=UserContext,</span></span>
+<span class="line"><span>    system_prompt="You are a financial assistant."</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>result = agent.invoke(</span></span>
+<span class="line"><span>    &#123;"messages": [&#123;"role": "user", "content": "What's my current balance?"&#125;]&#125;,</span></span>
+<span class="line"><span>    context=UserContext(user_id="user123")</span></span>
+<span class="line"><span>)</span></span></code></pre>
+<p>流程：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>1️⃣ 定义一个“用户数据库”</span></span>
+<span class="line"><span>2️⃣ 定义一个“用户上下文结构”（UserContext）</span></span>
+<span class="line"><span>3️⃣ 定义 tool：根据当前用户ID查账户信息</span></span>
+<span class="line"><span>4️⃣ 创建 agent（绑定 tool + context schema）</span></span>
+<span class="line"><span>5️⃣ 调用 agent，并传入当前用户是谁</span></span></code></pre>
+<h4 id="memory"><a class="anchor" href="#memory">#</a> Memory</h4>
+<p>长期记忆 store</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from typing import Any</span></span>
+<span class="line"><span>from langgraph.store.memory import InMemoryStore</span></span>
+<span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.tools import tool, ToolRuntime</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Access memory</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def get_user_info(user_id: str, runtime: ToolRuntime) -> str:</span></span>
+<span class="line"><span>    """Look up user info."""</span></span>
+<span class="line"><span>    store = runtime.store</span></span>
+<span class="line"><span>    user_info = store.get(("users",), user_id)</span></span>
+<span class="line"><span>    return str(user_info.value) if user_info else "Unknown user"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Update memory</span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def save_user_info(user_id: str, user_info: dict[str, Any], runtime: ToolRuntime) -> str:</span></span>
+<span class="line"><span>    """Save user info."""</span></span>
+<span class="line"><span>    store = runtime.store</span></span>
+<span class="line"><span>    store.put(("users",), user_id, user_info)</span></span>
+<span class="line"><span>    return "Successfully saved user info."</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>store = InMemoryStore()</span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model,</span></span>
+<span class="line"><span>    tools=[get_user_info, save_user_info],</span></span>
+<span class="line"><span>    store=store</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># First session: save user info</span></span>
+<span class="line"><span>agent.invoke(&#123;</span></span>
+<span class="line"><span>    "messages": [&#123;"role": "user", "content": "Save the following user: userid: abc123, name: Foo, age: 25, email: foo@langchain.dev"&#125;]</span></span>
+<span class="line"><span>&#125;)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Second session: get user info</span></span>
+<span class="line"><span>agent.invoke(&#123;</span></span>
+<span class="line"><span>    "messages": [&#123;"role": "user", "content": "Get user info for user with id 'abc123'"&#125;]</span></span>
+<span class="line"><span>&#125;)</span></span>
+<span class="line"><span># Here is the user info for user with ID "abc123":</span></span>
+<span class="line"><span># - Name: Foo</span></span>
+<span class="line"><span># - Age: 25</span></span>
+<span class="line"><span># - Email: foo@langchain.dev</span></span></code></pre>
+<h3 id="短期记忆"><a class="anchor" href="#短期记忆">#</a> 短期记忆</h3>
+<p><strong>短期记忆</strong>让应用程序能够记住<strong>单个线程</strong>或<strong>对话</strong>中的先前交互。</p>
+<p><strong>会话历史记录</strong> (Conversation history) 是短期记忆最常见的形式。对于当今的 <strong>LLM</strong> (大型语言模型) 来说，<strong>长对话</strong>是一个挑战；完整的历史记录可能无法完全容纳在一个 LLM 的<strong>上下文窗口</strong> (context window) 内，从而导致<strong>上下文丢失</strong> (context loss) 或<strong>错误</strong>。</p>
+<blockquote>
+<p>短期记忆 = 把 state 持久化下来（按 thread 分开）<br />
+→ 下次还能继续这个对话</p>
+</blockquote>
+<p><mark>短期记忆 = state + checkpointer + thread_id</mark></p>
+<p>要向Agent添加短期记忆（线程级持久性），需要在创建代理时指定一个 <strong><code>checkpointer</code></strong>。</p>
+<p>LangChain 的Agent将短期记忆作为Agent<strong>状态</strong> (state) 的一部分进行管理。</p>
+<p>通过将这些存储在图 (graph) 的状态中，Agent可以访问给定对话的完整上下文，同时保持不同线程之间的分离。</p>
+<p>状态使用 <strong>checkpointer</strong> 持久化到数据库（或内存）中，以便线程可以随时恢复。</p>
+<p><mark><strong>当Agent被调用或一个步骤（如工具调用）完成时，短期记忆会更新，并在每个步骤开始时读取状态。</strong></mark></p>
+<p>启用<strong>短期记忆</strong>后，长对话可能会超出 LLM 的上下文窗口。常见的解决方案有：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>修剪消息</strong> (Trim messages) ✂️</td>
+<td style="text-align:left">移除最初或最后的 N 条消息（在调用 LLM 之前）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>删除消息</strong> (Delete messages) 🗑️</td>
+<td style="text-align:left">从 LangGraph 状态中<strong>永久</strong>删除消息。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>总结消息</strong> (Summarize messages) 📝</td>
+<td style="text-align:left">总结历史记录中较早的消息，并用摘要替换它们。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>自定义策略</strong> (Custom strategies) ⚙️</td>
+<td style="text-align:left">自定义策略（例如：消息过滤等）。</td>
+</tr>
+</tbody>
+</table>
+<p>这使得Agent能够在不超出 LLM 上下文窗口的情况下跟踪对话。</p>
+<h4 id="修剪消息-trim-messages"><a class="anchor" href="#修剪消息-trim-messages">#</a> 修剪消息 (Trim messages)</h4>
+<p>大多数 LLM 都有一个最大支持的上下文窗口（以 token 计）。</p>
+<p>决定何时截断消息的一种方法是<strong>计算消息历史记录中的 token 数</strong>，并在接近该限制时进行截断。如果您使用 LangChain，可以使用<strong>修剪消息实用程序</strong> (trim messages utility) 并指定要从列表中保留的 token 数量，以及用于处理边界的 <code>strategy</code>（例如：保留最后的 <code>max_tokens</code>）。</p>
+<p>要在代理中修剪消息历史记录，请使用 <strong><code>@before_model</code></strong> 中间件装饰器：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.messages import RemoveMessage</span></span>
+<span class="line"><span>from langgraph.graph.message import REMOVE_ALL_MESSAGES</span></span>
+<span class="line"><span>from langgraph.checkpoint.memory import InMemorySaver</span></span>
+<span class="line"><span>from langchain.agents import create_agent, AgentState</span></span>
+<span class="line"><span>from langchain.agents.middleware import before_model</span></span>
+<span class="line"><span>from langgraph.runtime import Runtime</span></span>
+<span class="line"><span>from langchain_core.runnables import RunnableConfig</span></span>
+<span class="line"><span>from typing import Any</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@before_model</span></span>
+<span class="line"><span>def trim_messages(state: AgentState, runtime: Runtime) -> dict[str, Any] | None:</span></span>
+<span class="line"><span>    """Keep only the last few messages to fit context window."""</span></span>
+<span class="line"><span>    messages = state["messages"]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if len(messages) &#x3C;= 3:</span></span>
+<span class="line"><span>        return None  # No changes needed</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    first_msg = messages[0] # 保留第一条</span></span>
+<span class="line"><span>    recent_messages = messages[-3:] if len(messages) % 2 == 0 else messages[-4:] # 取最近几条</span></span>
+<span class="line"><span>    new_messages = [first_msg] + recent_messages # 拼接形成新的上下文</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return &#123;</span></span>
+<span class="line"><span>        "messages": [</span></span>
+<span class="line"><span>            RemoveMessage(id=REMOVE_ALL_MESSAGES), # 清空旧的历史消息</span></span>
+<span class="line"><span>            *new_messages</span></span>
+<span class="line"><span>        ]</span></span>
+<span class="line"><span>    &#125;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model,</span></span>
+<span class="line"><span>    tools=tools,</span></span>
+<span class="line"><span>    middleware=[trim_messages],</span></span>
+<span class="line"><span>    checkpointer=InMemorySaver(),</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>config: RunnableConfig = &#123;"configurable": &#123;"thread_id": "1"&#125;&#125;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "hi, my name is bob"&#125;, config)</span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "write a short poem about cats"&#125;, config)</span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "now do the same but for dogs"&#125;, config)</span></span>
+<span class="line"><span>final_response = agent.invoke(&#123;"messages": "what's my name?"&#125;, config)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>final_response["messages"][-1].pretty_print()</span></span>
+<span class="line"><span>"""</span></span>
+<span class="line"><span>================================== Ai Message ==================================</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Your name is Bob. You told me that earlier.</span></span>
+<span class="line"><span>If you'd like me to call you a nickname or use a different name, just say the word.</span></span>
+<span class="line"><span>"""</span></span></code></pre>
+<h4 id="删除消息"><a class="anchor" href="#删除消息">#</a> 删除消息</h4>
+<h4 id="总结消息"><a class="anchor" href="#总结消息">#</a> 总结消息</h4>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.agents import create_agent</span></span>
+<span class="line"><span>from langchain.agents.middleware import SummarizationMiddleware</span></span>
+<span class="line"><span>from langgraph.checkpoint.memory import InMemorySaver</span></span>
+<span class="line"><span>from langchain_core.runnables import RunnableConfig</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>checkpointer = InMemorySaver()</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model="openai:gpt-4o",</span></span>
+<span class="line"><span>    tools=[],</span></span>
+<span class="line"><span>    middleware=[</span></span>
+<span class="line"><span>        SummarizationMiddleware(</span></span>
+<span class="line"><span>            model="openai:gpt-4o-mini",</span></span>
+<span class="line"><span>            max_tokens_before_summary=4000,  # Trigger summarization at 4000 tokens</span></span>
+<span class="line"><span>            messages_to_keep=20,  # Keep last 20 messages after summary</span></span>
+<span class="line"><span>        )</span></span>
+<span class="line"><span>    ],</span></span>
+<span class="line"><span>    checkpointer=checkpointer,</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>config: RunnableConfig = &#123;"configurable": &#123;"thread_id": "1"&#125;&#125;</span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "hi, my name is bob"&#125;, config)</span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "write a short poem about cats"&#125;, config)</span></span>
+<span class="line"><span>agent.invoke(&#123;"messages": "now do the same but for dogs"&#125;, config)</span></span>
+<span class="line"><span>final_response = agent.invoke(&#123;"messages": "what's my name?"&#125;, config)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>final_response["messages"][-1].pretty_print()</span></span>
+<span class="line"><span>"""</span></span>
+<span class="line"><span>================================== Ai Message ==================================</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Your name is Bob!</span></span>
+<span class="line"><span>"""</span></span></code></pre>
+<p>通过总结消息缩减上下文</p>
+<h4 id="访问记忆-access-memory"><a class="anchor" href="#访问记忆-access-memory">#</a> 访问记忆 (Access memory)</h4>
+<p>在工具中读取短期记忆 (Read short-term memory in a tool)</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>from langchain.agents import create_agent, AgentState</span></span>
+<span class="line"><span>from langchain.tools import tool, ToolRuntime</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class CustomState(AgentState):</span></span>
+<span class="line"><span>    user_id: str</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@tool</span></span>
+<span class="line"><span>def get_user_info(</span></span>
+<span class="line"><span>    runtime: ToolRuntime</span></span>
+<span class="line"><span>) -> str:</span></span>
+<span class="line"><span>    """Look up user info."""</span></span>
+<span class="line"><span>    user_id = runtime.state["user_id"]</span></span>
+<span class="line"><span>    return "User is John Smith" if user_id == "user_123" else "Unknown user"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>agent = create_agent(</span></span>
+<span class="line"><span>    model="openai:gpt-5-nano",</span></span>
+<span class="line"><span>    tools=[get_user_info],</span></span>
+<span class="line"><span>    state_schema=CustomState,</span></span>
+<span class="line"><span>)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>result = agent.invoke(&#123;</span></span>
+<span class="line"><span>    "messages": "look up user information",</span></span>
+<span class="line"><span>    "user_id": "user_123"</span></span>
+<span class="line"><span>&#125;)</span></span>
+<span class="line"><span>print(result["messages"][-1].content)</span></span>
+<span class="line"><span># > User is John Smith.</span></span></code></pre>
+<h3 id="流式传输-2"><a class="anchor" href="#流式传输-2">#</a> 流式传输</h3>
+<h3 id="中间件"><a class="anchor" href="#中间件">#</a> 中间件</h3>
+<p>&lt;img src=&quot;<a target="_blank" rel="noopener" href="https://langchain-doc.cn/img/langchain-5e9cc07a/middleware_final.png">https://langchain-doc.cn/img/langchain-5e9cc07a/middleware_final.png</a>&quot; alt=&quot;middleware_final.png&quot; style=&quot;zoom:50%;&quot; /&gt;</p>
+<h3 id="结构化输出"><a class="anchor" href="#结构化输出">#</a> 结构化输出</h3>
+<h2 id="高级用法"><a class="anchor" href="#高级用法">#</a> 高级用法</h2>
+<h3 id="守卫"><a class="anchor" href="#守卫">#</a> 守卫</h3>
+<h3 id="运行时"><a class="anchor" href="#运行时">#</a> 运行时</h3>
+<h3 id="智能体中的上下文工程"><a class="anchor" href="#智能体中的上下文工程">#</a> 智能体中的上下文工程</h3>
+<h5 id="代理循环-the-agent-loop"><a class="anchor" href="#代理循环-the-agent-loop">#</a> 代理循环 (The agent loop)</h5>
+<p>一个典型的代理循环包括两个主要步骤：</p>
+<ol>
+<li><strong>模型调用（Model call）</strong>- 用提示（prompt）和可用工具调用 LLM，返回一个响应或一个执行工具的请求</li>
+<li><strong>工具执行（Tool execution）</strong>- 执行 LLM 请求的工具，返回工具结果</li>
+</ol>
+<h3 id="mcp"><a class="anchor" href="#mcp">#</a> MCP</h3>
+<h3 id="人机交互"><a class="anchor" href="#人机交互">#</a> 人机交互</h3>
+<h3 id="多智能体系统"><a class="anchor" href="#多智能体系统">#</a> 多智能体系统</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">工作原理</th>
+<th style="text-align:left">控制流</th>
+<th style="text-align:left">示例用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>工具调用 (Tool Calling)</strong></td>
+<td style="text-align:left">一个<strong>主管 (supervisor)</strong> 智能体将其他智能体作为<em>工具</em>来调用。“工具”智能体不直接与用户交谈——它们只运行任务并返回结果。</td>
+<td style="text-align:left"><strong>集中式</strong>：所有路由都通过调用智能体进行。</td>
+<td style="text-align:left">任务编排、结构化工作流程。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>交接 (Handoffs)</strong></td>
+<td style="text-align:left">当前智能体决定将<strong>控制权转移</strong>给另一个智能体。活动的智能体发生变化，用户可以继续直接与新的智能体交互。</td>
+<td style="text-align:left"><strong>分散式</strong>：智能体可以改变谁是活动的。</td>
+<td style="text-align:left">多领域对话、专家接管。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="检索"><a class="anchor" href="#检索">#</a> 检索</h3>
+<h4 id="长期记忆"><a class="anchor" href="#长期记忆">#</a> 长期记忆</h4>
+<div class="tags"><a href="/tags/Agent/" rel="tag"><i class="ic i-tag"></i>Agent</a></div></div><footer><div class="meta"></div><div class="reward"><button><i class="ic i-heartbeat"></i>赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img loading="lazy" src="/assets/wechatpay.png" alt="wt 微信支付"/><p>微信支付</p></div><div><img loading="lazy" src="/assets/alipay.png" alt="wt 支付宝"/><p>支付宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>wt<i class="ic i-at"><em>@</em></i>weitong's Blog</li><li class="link"><strong>本文链接：</strong><a href="http://example.com/2026/04/08/Langchain/" title="Langchain">http://example.com/2026/04/08/Langchain/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2026/03/26/LoRA-QLoRA/" rel="prev" itemprop="url" data-background-image=".&#x2F;assets&#x2F;cover2.jpg" title="LoRA&amp;QLoRA"><span class="type">上一篇</span><h3>LoRA&QLoRA</h3></a></div><div class="item right"></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#langchain"><span class="toc-number">1.</span> <span class="toc-text"> LangChain</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.1.</span> <span class="toc-text"> 快速入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text"> 核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 智能体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 动态模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 工具</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#react-%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.1.2.1.</span> <span class="toc-text"> ReAct 循环中的工具使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA"><span class="toc-number">1.2.1.2.2.</span> <span class="toc-text"> 动态系统提示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA%E7%AD%96%E7%95%A5"><span class="toc-number">1.2.1.2.3.</span> <span class="toc-text"> 结构化输出策略</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%B0%E5%BF%86"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 记忆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 流式传输</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7-2"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 访问上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#toolruntime"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> ToolRuntime</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#command"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> Command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#context"><span class="toc-number">1.2.3.4.</span> <span class="toc-text"> Context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#memory"><span class="toc-number">1.2.3.5.</span> <span class="toc-text"> Memory</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%AD%E6%9C%9F%E8%AE%B0%E5%BF%86"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 短期记忆</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA%E6%B6%88%E6%81%AF-trim-messages"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 修剪消息 (Trim messages)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%B6%88%E6%81%AF"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 删除消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E6%B6%88%E6%81%AF"><span class="toc-number">1.2.4.3.</span> <span class="toc-text"> 总结消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%AE%B0%E5%BF%86-access-memory"><span class="toc-number">1.2.4.4.</span> <span class="toc-text"> 访问记忆 (Access memory)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93-2"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 流式传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">1.2.6.</span> <span class="toc-text"> 中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA"><span class="toc-number">1.2.7.</span> <span class="toc-text"> 结构化输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text"> 高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%88%E5%8D%AB"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 守卫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 运行时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E4%B8%AD%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 智能体中的上下文工程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E5%BE%AA%E7%8E%AF-the-agent-loop"><span class="toc-number">1.3.3.0.1.</span> <span class="toc-text"> 代理循环 (The agent loop)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mcp"><span class="toc-number">1.3.4.</span> <span class="toc-text"> MCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 人机交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 多智能体系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 检索</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86"><span class="toc-number">1.3.7.1.</span> <span class="toc-text"> 长期记忆</span></a></li></ol></li></ol></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="wt" src="/assets/avatar.jpg"/><p class="name" itemprop="name">wt</p><div class="description" itemprop="description"></div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">6</span><span class="name">文章</span></a></div><div class="item tags"><a href="/tags/"><span class="count">3</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/yourname" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2026/03/26/LoRA-QLoRA/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div><div id="player"></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"></div><span><a href="/2026/04/08/Langchain/">Langchain</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2026/03/20/hello-world/">Hello World</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2026/03/19/LSP/">LSP</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2026/03/26/LoRA-QLoRA/">LoRA&QLoRA</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2026/03/24/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%AB%98%E9%A2%91/">概率统计高频</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2026/03/23/%E6%A0%91%E6%A8%A1%E5%9E%8B/">决策树</a></span></li></ul></div><div class="rpost pjax"><h2>最新评论</h2></div></div><div class="status"><div class="copyright">&copy; 2022 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">wt @ 游于艺</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">27k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">25 分钟</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `2026/04/08/Langchain/`,
+    favicon: {
+        show: `（●´3｀●）やれやれだぜ`,
+        hide: `(´Д｀)大変だ！`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    }
+};
+</script><script src="/js/siteInit.js?v=0.5.4" type="module" fetchpriority="high" defer></script></body></html>
