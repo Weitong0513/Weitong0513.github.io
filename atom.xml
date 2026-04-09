@@ -8,7 +8,258 @@
     <author>
       <name>wt</name>
     </author>
-    <updated>2026-04-09T02:36:47.000Z</updated>
+    <updated>2026-04-09T03:05:39.000Z</updated>
+    <entry>
+        <id>http://example.com/2026/04/09/Memory-%E4%B8%80%E8%87%B4%E6%80%A7/</id>
+        <title>Memory 一致性</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/Memory-%E4%B8%80%E8%87%B4%E6%80%A7/"/>
+        <content type="html">&lt;h1 id=&#34;memory-一致性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-一致性&#34;&gt;#&lt;/a&gt; &lt;strong&gt;Memory 一致性&lt;/strong&gt;&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Agent 的“记忆”必须一致，否则行为会混乱&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;典型问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同一事实被多次修改（冲突）&lt;/li&gt;
+&lt;li&gt;旧记忆覆盖新记忆&lt;/li&gt;
+&lt;li&gt;不同 Agent 记忆不一致&lt;/li&gt;
+&lt;li&gt;hallucination 写入 memory&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Memory = Persistent State&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但问题是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LLM 本身是“无状态”的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以需要：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;外部 memory 系统 + 一致性机制&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;解决思路&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#解决思路&#34;&gt;#&lt;/a&gt; &lt;strong&gt;解决思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1️⃣ Memory 分层&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Working Memory（短期）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Long-term Memory（长期）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;2️⃣ 写入控制（关键）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;不是什么都存&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;需要：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;validation&lt;/p&gt;
+&lt;p&gt;更偏向存储长期记忆&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;deduplication&lt;/p&gt;
+&lt;p&gt;去掉重复的信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;scoring&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3️⃣ 一致性策略&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;versioning（版本控制）&lt;/p&gt;
+&lt;p&gt;同一条知识的多个版本&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;conflict resolution&lt;/p&gt;
+&lt;p&gt;Memory 中内容相对的信息是，如何选择？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间&lt;/li&gt;
+&lt;li&gt;置信度&lt;/li&gt;
+&lt;li&gt;多值共存（有时 A，有时 B）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;source tracking（来源）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T03:05:39.000Z</updated>
+    </entry>
+    <entry>
+        <id>http://example.com/2026/04/09/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/</id>
+        <title>上下文管理</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/"/>
+        <content type="html">&lt;h1 id=&#34;上下文管理context-management&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#上下文管理context-management&#34;&gt;#&lt;/a&gt; &lt;strong&gt;上下文管理（Context Management）&lt;/strong&gt;&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LLM 只能看到有限上下文，但任务可能很长&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;context window 有限（即使 100K+ 也不够）&lt;/li&gt;
+&lt;li&gt;信息会：
+&lt;ul&gt;
+&lt;li&gt;被截断&lt;/li&gt;
+&lt;li&gt;被遗忘&lt;/li&gt;
+&lt;li&gt;被污染&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Full State ≠ Prompt Context&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要一个：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;外部状态系统（External State Store）&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;解决思路&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#解决思路&#34;&gt;#&lt;/a&gt; &lt;strong&gt;解决思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1️⃣ 分层上下文&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;短期记忆（当前对话）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;长期记忆（历史/知识库）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;2️⃣ RAG（检索增强）&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Query → 检索 → 填入 prompt&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;3️⃣ 状态压缩&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;summarization&lt;/li&gt;
+&lt;li&gt;memory pruning&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T03:02:23.000Z</updated>
+    </entry>
+    <entry>
+        <id>http://example.com/2026/04/09/%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/</id>
+        <title>工具调用</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/"/>
+        <content type="html">&lt;h1 id=&#34;工具调用tool-use&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#工具调用tool-use&#34;&gt;#&lt;/a&gt; &lt;strong&gt;工具调用（Tool Use）&lt;/strong&gt;&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LLM 本身不能“做事”，必须调用工具&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;什么时候调用？&lt;/li&gt;
+&lt;li&gt;调哪个工具？&lt;/li&gt;
+&lt;li&gt;参数怎么填？&lt;/li&gt;
+&lt;li&gt;结果怎么用？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本质是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;❌ LLM 不擅长“结构化决策”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Thought → Tool Selection → Arguments → Tool Execution → Result&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;是一个：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;决策 + API 调用问题&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;解决思路&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#解决思路&#34;&gt;#&lt;/a&gt; &lt;strong&gt;解决思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Function Calling / Tool Schema&lt;/li&gt;
+&lt;li&gt;Toolformer / ReAct&lt;/li&gt;
+&lt;li&gt;Planner 决定工具序列&lt;/li&gt;
+&lt;li&gt;Tool feedback loop（结果再输入模型）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1-function-calling-tool-schema&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-function-calling-tool-schema&#34;&gt;#&lt;/a&gt; 1 Function Calling / Tool Schema&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把“工具”变成 LLM 能理解和调用的&lt;strong&gt;结构化接口&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Tool Schema&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &#34;name&#34;: &#34;get_weather&#34;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &#34;description&#34;: &#34;Get weather by city&#34;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &#34;parameters&#34;: &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &#34;type&#34;: &#34;object&#34;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &#34;properties&#34;: &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;      &#34;city&#34;: &amp;#123; &#34;type&#34;: &#34;string&#34; &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &amp;#125;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &#34;required&#34;: [&#34;city&#34;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Function Calling&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &#34;tool&#34;: &#34;get_weather&#34;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &#34;arguments&#34;: &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &#34;city&#34;: &#34;Tokyo&#34;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2-toolformer-react&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-toolformer-react&#34;&gt;#&lt;/a&gt; 2 Toolformer / ReAct&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ReAct&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Thought: 我需要查天气&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Action: get_weather(city=&#34;Tokyo&#34;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Observation: 20°C&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Thought: 可以回答了&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Answer: 今天东京20°C&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Toolformer&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;（模型训练）&lt;/p&gt;
+&lt;p&gt;核心思想：&lt;/p&gt;
+&lt;p&gt;LLM 自己学习：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;什么时候调用工具&lt;/li&gt;
+&lt;li&gt;怎么调用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不是纯 prompt，而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;让模型“内化工具使用能力”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;3-planner-决定工具序列&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-planner-决定工具序列&#34;&gt;#&lt;/a&gt; 3 Planner 决定工具序列&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不让 LLM“边想边调用”，而是&lt;strong&gt;先规划完整工具链&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;ReAct 的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;局部最优&lt;/li&gt;
+&lt;li&gt;容易乱调用工具&lt;/li&gt;
+&lt;li&gt;不稳定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Task: 分析数据&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Planner 输出：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;1. load_data()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;2. clean_data()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;3. analyze()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;4. plot()&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4-tool-feedback-loop结果再输入模型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#4-tool-feedback-loop结果再输入模型&#34;&gt;#&lt;/a&gt; 4 Tool feedback loop（结果再输入模型）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工具结果必须“反馈给模型”，形成闭环&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;Thought → Action → Tool → Result → Observation → Thought → ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T03:01:52.000Z</updated>
+    </entry>
+    <entry>
+        <id>http://example.com/2026/04/09/%E9%95%BF%E9%93%BE%E6%8E%A8%E7%90%86/</id>
+        <title>长链推理</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/%E9%95%BF%E9%93%BE%E6%8E%A8%E7%90%86/"/>
+        <content type="html">&lt;h1 id=&#34;长链推理long-horizon-reasoning&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#长链推理long-horizon-reasoning&#34;&gt;#&lt;/a&gt; &lt;strong&gt;长链推理（Long-horizon reasoning）&lt;/strong&gt;&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;模型要连续做很多步决策，而不是一步回答&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;LLM 本质是：&lt;strong&gt;单步 next-token 预测&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;但 Agent 需要：&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;思考 → 行动 → 观察 → 再思考 → ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;容易出现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;推理漂移（drift）&lt;/li&gt;
+&lt;li&gt;早期错误被放大&lt;/li&gt;
+&lt;li&gt;计划崩塌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;State_t → Thought_t → Action_t → Observation_t → State_{t+1}
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8333em;vertical-align:-0.15em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;St&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.2806em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8889em;vertical-align:-0.1944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;ug&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.2806em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8333em;vertical-align:-0.15em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.2806em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8444em;vertical-align:-0.15em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;ser&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.2806em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8917em;vertical-align:-0.2083em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;St&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.3011em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mbin mtight&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.2083em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;序列决策问题（类似强化学习）&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;解决思路&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CoT / Tree-of-Thought&lt;/li&gt;
+&lt;li&gt;ReAct（思考 + 行动循环）&lt;/li&gt;
+&lt;li&gt;Self-reflection（自我纠错）&lt;/li&gt;
+&lt;li&gt;Re-planning（动态重规划）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以这样理解整个 Agent 系统：&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        长链推理（控制流程）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;                ↓&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        工具调用（执行能力）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;                ↓&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        上下文管理（信息输入）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;                ↓&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        Memory（长期状态）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T02:56:18.000Z</updated>
+    </entry>
     <entry>
         <id>http://example.com/2026/04/09/Multi-Agent-Orchestration-Patterns/</id>
         <title>Multi-Agent Orchestration Patterns</title>
