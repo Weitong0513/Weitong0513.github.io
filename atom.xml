@@ -8,7 +8,257 @@
     <author>
       <name>wt</name>
     </author>
-    <updated>2026-04-09T03:05:39.000Z</updated>
+    <updated>2026-04-09T06:09:14.000Z</updated>
+    <entry>
+        <id>http://example.com/2026/04/09/OpenClaw/</id>
+        <title>OpenClaw</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/OpenClaw/"/>
+        <content type="html">&lt;p&gt;整体架构&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;┌─────────────────────────────────────────────────────┐&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│                   CLI 层                            │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│        entry.ts → run-main.ts → command-registry    │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;├─────────────────────────────────────────────────────┤&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│                  Gateway 层（控制平面）               │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│    WebSocket 服务 · HTTP 服务 · 通道管理 · 热重载     │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;├──────────────┬──────────────┬────────────────────────┤&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│  Channel 层  │   Routing 层 │    Plugin 层            │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│  多通道适配  │  路由 + 会话键│  工具/通道/Provider 注册 │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;├──────────────┴──────────────┴────────────────────────┤&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│               Auto-Reply / Agent 执行层               │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│   dispatch → get-reply → agent-runner → embedded PI  │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;├─────────────────────────────────────────────────────┤&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│                AI Provider 层                        │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│    Anthropic · OpenAI · Ollama · Bedrock · ...       │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;├─────────────────────────────────────────────────────┤&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│              持久化 / 基础设施层                       │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;│       Config · Sessions · Media · Security · Cron    │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;└─────────────────────────────────────────────────────┘&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;CLI&lt;/code&gt; 发命令 -&amp;gt; &lt;code&gt;Gateway&lt;/code&gt; 启动和编排 -&amp;gt; &lt;code&gt;Channel&lt;/code&gt; 收发消息 -&amp;gt; &lt;code&gt;Routing&lt;/code&gt; 选 agent/session -&amp;gt; &lt;code&gt;Auto-Reply&lt;/code&gt; 调模型生成回复 -&amp;gt; &lt;code&gt;Outbound&lt;/code&gt; 发回通道 -&amp;gt; &lt;code&gt;Config/Session/Media&lt;/code&gt; 持久化状态。&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://developer.qcloudimg.com/http-save/yehe-1278550/7e97649dcbe22b7068d8bff3c0bb21b2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i-blog.csdnimg.cn/img_convert/85debe923524a9ca7d7bd347156c730a.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Gateway（网关）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定位&lt;/strong&gt;：系统的“大脑”和“交通枢纽”。&lt;/li&gt;
+&lt;li&gt;核心功能：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;协议编排&lt;/strong&gt;：统一处理来自不同渠道（CLI、Telegram、Web等）的消息，进行标准化。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;会话管理&lt;/strong&gt;：为每个用户-渠道组合创建独立的会话（Session），维护其状态。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;指令队列&lt;/strong&gt;：实现“车道式”（Lane-based）队列，确保指令按序、可靠地执行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实时流式反馈&lt;/strong&gt;：通过 WebSocket 将执行进度（如打字动画、工具调用状态）低延迟地推送给客户端。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2. Agent Runner（智能体运行器）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定位&lt;/strong&gt;：AI 能力的“承载者”和“执行引擎”。&lt;/li&gt;
+&lt;li&gt;核心功能：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;动态提示词构建&lt;/strong&gt;：在运行时，根据 &lt;code&gt;SOUL.md&lt;/code&gt;（灵魂/性格）、&lt;code&gt;TOOLS.md&lt;/code&gt;（工具集）、&lt;code&gt;AGENTS.md&lt;/code&gt;（角色）和会话历史，动态拼接出发送给大模型的完整提示词。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型调用与容错&lt;/strong&gt;：自动选择并调用配置的大模型（OpenAI, Anthropic, 本地模型等）。若主模型失败，能自动降级到备用模型或切换 API 密钥。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;上下文窗口守护&lt;/strong&gt;：监控会话长度，当接近模型上下文上限时，自动触发内容压缩（总结）或优雅终止，防止崩溃。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3. Channel Adapters（渠道适配器）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定位&lt;/strong&gt;：连接外部世界的“翻译官”。&lt;/li&gt;
+&lt;li&gt;核心功能：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;消息归一化&lt;/strong&gt;：将不同渠道（如 Telegram 的富文本、WhatsApp 的语音）的消息，转换为 OpenClaw 内部统一的数据结构。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;附件处理&lt;/strong&gt;：自动下载并缓存用户发送的图片、音频、PDF 等附件，供后续工具使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4. &lt;mark&gt;记忆系统（Memory System）&lt;/mark&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定位&lt;/strong&gt;：Agent 的“长期记忆”和“个性”来源。&lt;/li&gt;
+&lt;li&gt;核心功能（四层架构）：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SOUL（灵魂）&lt;/strong&gt;：定义 Agent 不可变的核心价值观和行为准则（如 &lt;code&gt;SOUL.md&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TOOLS（工具）&lt;/strong&gt;：动态注册的工具元数据，告诉 Agent 它能做什么（如 &lt;code&gt;TOOLS.md&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;USER（用户记忆）&lt;/strong&gt;：基于向量的长期记忆库，存储用户偏好、习惯等，实现“越用越懂你”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Session（会话记忆）&lt;/strong&gt;：当前对话的短期情景记忆，保证上下文连贯。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;5-skills技能插件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#5-skills技能插件&#34;&gt;#&lt;/a&gt; &lt;strong&gt;5. Skills（技能插件）&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定位&lt;/strong&gt;：Agent 能力的“即插即用”扩展包。&lt;/li&gt;
+&lt;li&gt;核心功能
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;能力赋予&lt;/strong&gt;：通过安装一个 &lt;code&gt;SKILL.md&lt;/code&gt; 文件，Agent 即可学会操作新系统。例如，安装 &lt;code&gt;apple-notes&lt;/code&gt; Skill 后，它就能读写你的苹果备忘录。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自主学习&lt;/strong&gt;：Agent 通过阅读 &lt;code&gt;SKILL.md&lt;/code&gt; 中的“调用契约”（API 文档），自主构造正确的请求，无需重新训练模型。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i-blog.csdnimg.cn/img_convert/34ee0a0a103a3df65464b10690c68757.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;context&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#context&#34;&gt;#&lt;/a&gt; Context&lt;/h1&gt;
+&lt;p&gt;Session Load → Sanitize → Validate → Limit History → Assemble → LLM Call&lt;br /&gt;
+加载会话      消息清洗      格式校验      历史裁剪       组装上下文     模型调用&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;加载对话&lt;/p&gt;
+&lt;p&gt;OpenClaw 使用 &lt;code&gt;SessionManager&lt;/code&gt;（来自 &lt;code&gt;@mariozechner/pi-coding-agent&lt;/code&gt;）加载会话 Transcript。每个会话是一个 &lt;strong&gt;JSONL 文件&lt;/strong&gt;，每一行是一条 &lt;code&gt;AgentMessage&lt;/code&gt;，按时间顺序追加。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;消息清洗&lt;/p&gt;
+&lt;p&gt;清洗阶段处理的是&amp;quot;脏数据&amp;quot;——&lt;strong&gt;包括过大的图片、无效的 Tool Call ID、模型的 Thinking Block 等&lt;/strong&gt;。不同的 Provider（Anthropic、Google、OpenAI）对消息格式有不同的要求，这一步确保兼容性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;格式校验&lt;/p&gt;
+&lt;p&gt;每个 LLM Provider 对消息轮次有自己的规则（&lt;strong&gt;比如 Anthropic 要求 user/assistant 严格交替&lt;/strong&gt;），这里根据 &lt;code&gt;TranscriptPolicy&lt;/code&gt; 做针对性校验和修复。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;历史裁剪&lt;/p&gt;
+&lt;p&gt;这是最直接的&amp;quot;减负&amp;quot;策略——只保留最近 N 轮用户对话。实现很精巧：从后向前扫描，计数用户消息，超出限制就截断。&lt;/p&gt;
+&lt;p&gt;设计巧思：&lt;mark&gt;不是简单地取最后 N 条消息，而是取最后 N 轮&lt;strong&gt;用户发起的对话&lt;/strong&gt;（包括每轮中对应的 assistant 回复和 tool call/result）&lt;/mark&gt;。这样能保证上下文的完整性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;组装上下文&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;模型调用&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;系统提示词组装模式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#系统提示词组装模式&#34;&gt;#&lt;/a&gt; 系统提示词组装模式&lt;/h2&gt;
+&lt;p&gt;System Prompt 是每次 LLM 调用的&amp;quot;人格基座&amp;quot;，OpenClaw 的 System Prompt 不是一个静态字符串，而是通过 &lt;code&gt;buildAgentSystemPrompt()&lt;/code&gt; 动态组装的&lt;strong&gt;多层结构&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;System Prompt 的组装入口在 &lt;code&gt;src/agents/system-prompt.ts&lt;/code&gt;，按照以下层次叠加：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层次&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;th&gt;来源&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Identity&lt;/td&gt;
+&lt;td&gt;Agent 身份标识&lt;/td&gt;
+&lt;td&gt;配置文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Skills&lt;/td&gt;
+&lt;td&gt;可用技能列表&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;buildWorkspaceSkillSnapshot()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Memory&lt;/td&gt;
+&lt;td&gt;记忆召回指令&lt;/td&gt;
+&lt;td&gt;Memory tools 可用时注入&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authorized Senders&lt;/td&gt;
+&lt;td&gt;授权用户信息&lt;/td&gt;
+&lt;td&gt;Owner 配置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Time&lt;/td&gt;
+&lt;td&gt;时区信息（仅时区，保持缓存稳定）&lt;/td&gt;
+&lt;td&gt;运行时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Tooling&lt;/td&gt;
+&lt;td&gt;工具列表和使用说明&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;createOpenClawCodingTools()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Workspace&lt;/td&gt;
+&lt;td&gt;工作区信息&lt;/td&gt;
+&lt;td&gt;Bootstrap files&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Runtime&lt;/td&gt;
+&lt;td&gt;运行环境信息（OS、Shell 等）&lt;/td&gt;
+&lt;td&gt;运行时检测&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;context-engine&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#context-engine&#34;&gt;#&lt;/a&gt; Context Engine&lt;/h2&gt;
+&lt;p&gt;这个接口定义了上下文引擎的完整生命周期：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法&lt;/th&gt;
+&lt;th&gt;职责&lt;/th&gt;
+&lt;th&gt;调用时机&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;bootstrap&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;初始化引擎状态，可导入历史上下文&lt;/td&gt;
+&lt;td&gt;会话首次启动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ingest&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;逐条摄入消息&lt;/td&gt;
+&lt;td&gt;每条消息产生后&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ingestBatch&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;批量摄入一轮对话的所有消息&lt;/td&gt;
+&lt;td&gt;一轮对话结束后&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;afterTurn&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;轮次后置处理（持久化、触发后台压缩等）&lt;/td&gt;
+&lt;td&gt;Agent 回复完成后&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;assemble&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;在 Token 预算内组装最终上下文&lt;/td&gt;
+&lt;td&gt;每次 LLM 调用前&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;compact&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;压缩上下文，生成摘要，删减旧消息&lt;/td&gt;
+&lt;td&gt;Token 接近上限时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;上下文管理策略&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#上下文管理策略&#34;&gt;#&lt;/a&gt; 上下文管理策略&lt;/h2&gt;
+&lt;h3 id=&#34;token-budget&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#token-budget&#34;&gt;#&lt;/a&gt; &lt;strong&gt;Token Budget&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;预算来源的优先级：用户配置 &amp;gt; 模型目录中的窗口大小 &amp;gt; 默认值 32K。这个预算会传递给 &lt;code&gt;contextEngine.assemble()&lt;/code&gt; 和 &lt;code&gt;compact()&lt;/code&gt;，作为它们工作的硬约束。&lt;/p&gt;
+&lt;h3 id=&#34;compaction&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#compaction&#34;&gt;#&lt;/a&gt; &lt;strong&gt;Compaction&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;当 Token 接近预算时，Compaction 机制启动。它的核心思路是：&lt;strong&gt;用 LLM 生成摘要来替代旧的对话历史&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Compaction 实现：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;评估&lt;/strong&gt;：估算当前上下文的 Token 总量&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;摘要&lt;/strong&gt;：调用 LLM 将旧的对话历史压缩成一段摘要&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;替换&lt;/strong&gt;：用摘要替代被压缩的消息，保留最近的对话&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;持久化&lt;/strong&gt;：摘要作为一条特殊消息写入 JSONL Transcript&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Compaction 可以通过多种方式触发：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;自动触发&lt;/strong&gt;：当 Token 接近窗口限制时&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手动触发&lt;/strong&gt;：用户执行 &lt;code&gt;/compact&lt;/code&gt; 命令&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Memory Flush 触发&lt;/strong&gt;：作为记忆刷新流程的一部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;memory-flush记忆刷新&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-flush记忆刷新&#34;&gt;#&lt;/a&gt; Memory Flush（记忆刷新）&lt;/h3&gt;
+&lt;p&gt;Memory Flush 是 Compaction 的&amp;quot;高级版&amp;quot;——它不仅仅压缩上下文，还将关键信息&lt;strong&gt;持久化到长期记忆文件&lt;/strong&gt;中。&lt;/p&gt;
+&lt;p&gt;Memory Flush 的工作流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;检测到 Token 接近上限&lt;/li&gt;
+&lt;li&gt;启动一个特殊的&amp;quot;记忆整理&amp;quot; Agent 运行&lt;/li&gt;
+&lt;li&gt;Agent 将对话中的关键决策、偏好、待办等提取到 &lt;code&gt;MEMORY.md&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;完成后执行 Compaction 释放上下文空间&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这与 Agent 日常使用的 Memory 工具（&lt;code&gt;memory_search&lt;/code&gt; / &lt;code&gt;memory_get&lt;/code&gt;）配合使用——System Prompt 中有明确的指令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Before answering anything about prior work, decisions, dates, people, preferences, or todos: run memory_search on &lt;a href=&#34;http://MEMORY.md&#34;&gt;MEMORY.md&lt;/a&gt; + memory/*.md; then use memory_get to pull only the needed lines.&amp;quot;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这样即使旧对话被压缩了，关键信息仍然可以通过 Memory 工具被召回。&lt;/p&gt;
+&lt;h3 id=&#34;tool-result-context-guard&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#tool-result-context-guard&#34;&gt;#&lt;/a&gt; Tool Result Context Guard&lt;/h3&gt;
+&lt;p&gt;限制单个 Tool Result 的大小。当一个工具返回了巨大的文件内容或命令输出时，这个 Guard 确保它不会吃掉过多的上下文预算。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://openclaw-docs.dx3n.cn/tutorials/concepts/system-architecture&#34;&gt;https://openclaw-docs.dx3n.cn/tutorials/concepts/system-architecture&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloud.tencent.com/developer/article/2636124&#34;&gt;https://cloud.tencent.com/developer/article/2636124&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://juejin.cn/post/7615807694733312042&#34;&gt;https://juejin.cn/post/7615807694733312042&lt;/a&gt;&lt;/p&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T06:09:14.000Z</updated>
+    </entry>
     <entry>
         <id>http://example.com/2026/04/09/Memory-%E4%B8%80%E8%87%B4%E6%80%A7/</id>
         <title>Memory 一致性</title>
@@ -1478,7 +1728,7 @@ IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2\frac{|D^v|}{|D|}
 &lt;p&gt;&lt;a href=&#34;https://baike.baidu.com/item/%E8%AF%AD%E8%A8%80%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE/60152895&#34;&gt;https://baike.baidu.com/item/语言服务协议/60152895&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://opencode.ai/docs/zh-cn/lsp/&#34;&gt;https://opencode.ai/docs/zh-cn/lsp/&lt;/a&gt;&lt;/p&gt;
 </content>
-        <category term="AI Agent" scheme="http://example.com/tags/AI-Agent/" />
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
         <updated>2026-03-19T05:32:06.000Z</updated>
     </entry>
 </feed>
