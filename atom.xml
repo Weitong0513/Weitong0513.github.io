@@ -8,7 +8,128 @@
     <author>
       <name>wt</name>
     </author>
-    <updated>2026-04-08T07:24:21.000Z</updated>
+    <updated>2026-04-09T02:36:47.000Z</updated>
+    <entry>
+        <id>http://example.com/2026/04/09/Multi-Agent-Orchestration-Patterns/</id>
+        <title>Multi-Agent Orchestration Patterns</title>
+        <link rel="alternate" href="http://example.com/2026/04/09/Multi-Agent-Orchestration-Patterns/"/>
+        <content type="html">&lt;p&gt;&lt;a href=&#34;https://gerred.github.io/building-an-agentic-system/second-edition/part-iv-advanced-patterns/chapter-10-multi-agent-orchestration.html&#34;&gt;https://gerred.github.io/building-an-agentic-system/second-edition/part-iv-advanced-patterns/chapter-10-multi-agent-orchestration.html&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;task-decomposition&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#task-decomposition&#34;&gt;#&lt;/a&gt; Task Decomposition&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Pattern&lt;/th&gt;
+&lt;th&gt;Best For&lt;/th&gt;
+&lt;th&gt;Avoid When&lt;/th&gt;
+&lt;th&gt;Example Use Case&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Functional&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Multi-domain tasks&lt;/td&gt;
+&lt;td&gt;Tight coupling between domains&lt;/td&gt;
+&lt;td&gt;Full-stack feature implementation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Spatial&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;File/directory-based work&lt;/td&gt;
+&lt;td&gt;Complex dependencies&lt;/td&gt;
+&lt;td&gt;Large-scale refactoring&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Temporal&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Phase-dependent processes&lt;/td&gt;
+&lt;td&gt;Parallel opportunities exist&lt;/td&gt;
+&lt;td&gt;Framework migrations&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Data-driven&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Processing large datasets&lt;/td&gt;
+&lt;td&gt;Small, cohesive data&lt;/td&gt;
+&lt;td&gt;Log analysis, batch processing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;模式1功能分解&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#模式1功能分解&#34;&gt;#&lt;/a&gt; 模式1：功能分解&lt;/h2&gt;
+&lt;p&gt;适用场景：可依据技术专长或系统层级自然划分的任务。&lt;br /&gt;
+生效原理：每个智能体能够专注于领域专属知识与工具，减少上下文切换，提升任务质量。&lt;br /&gt;
+划分依据：技术领域或专业技能&lt;/p&gt;
+&lt;h2 id=&#34;模式2空间分解&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#模式2空间分解&#34;&gt;#&lt;/a&gt; 模式2：空间分解&lt;/h2&gt;
+&lt;p&gt;适用场景：涉及大量可独立处理的文件或目录的任务。&lt;br /&gt;
+工作原理：通过确保智能体在代码库的不同部分工作以减少冲突，实现真正的并行处理。&lt;br /&gt;
+按文件或目录结构进行拆分&lt;/p&gt;
+&lt;h2 id=&#34;模式3时序分解&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#模式3时序分解&#34;&gt;#&lt;/a&gt; 模式3：时序分解&lt;/h2&gt;
+&lt;p&gt;适用场景：具有清晰先后阶段、后续阶段依赖前期阶段的任务。&lt;br /&gt;
+工作原理：确保每个阶段完全完成后再进入下一阶段，降低复杂度，并支持针对各阶段的专项优化。&lt;br /&gt;
+代码任务中的常见阶段：&lt;br /&gt;
+• 分析 → 规划 → 实现 → 验证&lt;br /&gt;
+• 备份 → 迁移 → 测试 → 回滚准备&lt;br /&gt;
+按执行阶段拆分&lt;/p&gt;
+&lt;h2 id=&#34;agent-communication-protocols&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#agent-communication-protocols&#34;&gt;#&lt;/a&gt; Agent Communication Protocols&lt;/h2&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;interface AgentStatus &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  state: &#39;initializing&#39; | &#39;active&#39; | &#39;completed&#39; | &#39;failed&#39;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  progress: AgentProgress;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  currentTask?: string;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  error?: ErrorContext;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  metrics?: PerformanceMetrics;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;AgentStatus：Agent 当前整体状态&lt;/li&gt;
+&lt;li&gt;state 标注当前 aent 状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;interface AgentProgress &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  steps: ExecutionStep[];&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  currentStep: number;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  estimatedCompletion?: Date;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;当前任务会被分割为多个 step&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;interface ExecutionStep &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  description: string;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  status: &#39;pending&#39; | &#39;active&#39; | &#39;completed&#39; | &#39;failed&#39;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  tools: ToolExecution[];&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;单个step，表示一个 step 内部都在做什么&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;class AgentCoordinator &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  private monitorAgent(agent: ManagedAgent): void &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    agent.subscribe(status =&gt; &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;      switch (status.state) &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        case &#39;active&#39;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          this.handleProgress(agent.id, status);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          break;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        case &#39;completed&#39;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          this.handleCompletion(agent.id, status);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          break;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;        case &#39;failed&#39;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          this.handleFailure(agent.id, status);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;          break;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;      &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &amp;#125;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;switch 三种状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  private handleProgress(agentId: string, status: AgentStatus): void &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    // Track progress for coordination&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    this.progressTracker.update(agentId, status.progress);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    // Monitor for coordination opportunities&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    if (status.progress.currentStep) &amp;#123;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;      const step = status.progress.steps[status.progress.currentStep];&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;      this.checkForCollaboration(agentId, step);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;    &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;  &amp;#125;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+</content>
+        <category term="Agent" scheme="http://example.com/tags/Agent/" />
+        <updated>2026-04-09T02:36:47.000Z</updated>
+    </entry>
     <entry>
         <id>http://example.com/2026/04/08/Langchain/</id>
         <title>Langchain</title>
