@@ -10,8 +10,42 @@
         </author>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Thu, 09 Apr 2026 14:45:11 +0800</pubDate>
-        <lastBuildDate>Thu, 09 Apr 2026 14:45:11 +0800</lastBuildDate>
+        <pubDate>Mon, 13 Apr 2026 13:36:50 +0800</pubDate>
+        <lastBuildDate>Mon, 13 Apr 2026 13:36:50 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">http://example.com/2026/04/13/CS231n/</guid>
+            <title>CS231n</title>
+            <link>http://example.com/2026/04/13/CS231n/</link>
+            <category term="LLM" scheme="http://example.com/tags/LLM/" />
+            <pubDate>Mon, 13 Apr 2026 13:36:50 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;CS231n: Deep Learning for Computer Vision&lt;/p&gt;
+&lt;p&gt;• Deep Learning Basics (Lecture 2 - 4)&lt;/p&gt;
+&lt;p&gt;• Perceiving and Understanding the Visual World (Lecture 5 - 12)&lt;/p&gt;
+&lt;p&gt;• Reconstructing and Interacting with the Visual World (Lecture 13 - 17)&lt;/p&gt;
+&lt;p&gt;• Human-Centered Artificial Intelligence (Lecture 18)&lt;/p&gt;
+&lt;h1 id=&#34;deep-learning-basics&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#deep-learning-basics&#34;&gt;#&lt;/a&gt; Deep Learning Basics&lt;/h1&gt;
+&lt;h2 id=&#34;lecture-2-线性分类器进行图像分类&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-2-线性分类器进行图像分类&#34;&gt;#&lt;/a&gt; Lecture 2 线性分类器进行图像分类&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-3-正则化与优化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-3-正则化与优化&#34;&gt;#&lt;/a&gt; Lecture 3 正则化与优化&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-4-神经网络与反向传播&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-4-神经网络与反向传播&#34;&gt;#&lt;/a&gt; Lecture 4 神经网络与反向传播&lt;/h2&gt;
+&lt;h1 id=&#34;perceiving-and-understanding-the-visual-world&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#perceiving-and-understanding-the-visual-world&#34;&gt;#&lt;/a&gt; Perceiving and Understanding the Visual World&lt;/h1&gt;
+&lt;h2 id=&#34;lecture-5-基于-cnn-的图像分类&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-5-基于-cnn-的图像分类&#34;&gt;#&lt;/a&gt; Lecture 5 基于 CNN 的图像分类&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-6-cnn-架构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-6-cnn-架构&#34;&gt;#&lt;/a&gt; Lecture 6 CNN 架构&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-7-循环神经网络&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-7-循环神经网络&#34;&gt;#&lt;/a&gt; Lecture 7 循环神经网络&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-8-注意力机制与-transformer&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-8-注意力机制与-transformer&#34;&gt;#&lt;/a&gt; Lecture 8 注意力机制与 Transformer&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-9-目标检测-图像分割与可视化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-9-目标检测-图像分割与可视化&#34;&gt;#&lt;/a&gt; Lecture 9 目标检测、图像分割与可视化&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-10-视频理解&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-10-视频理解&#34;&gt;#&lt;/a&gt; Lecture 10 视频理解&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-11-大规模分布式训练&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-11-大规模分布式训练&#34;&gt;#&lt;/a&gt; Lecture 11 大规模分布式训练&lt;/h2&gt;
+&lt;h2 id=&#34;lecure-12-自监督学习&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecure-12-自监督学习&#34;&gt;#&lt;/a&gt; Lecure 12 自监督学习&lt;/h2&gt;
+&lt;h1 id=&#34;generative-and-interactive-visual-intelligence&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#generative-and-interactive-visual-intelligence&#34;&gt;#&lt;/a&gt; Generative and Interactive Visual Intelligence&lt;/h1&gt;
+&lt;h2 id=&#34;lecture-13-生成模型一&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-13-生成模型一&#34;&gt;#&lt;/a&gt; Lecture 13 生成模型（一）&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-14-生成模型二&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-14-生成模型二&#34;&gt;#&lt;/a&gt; Lecture 14 生成模型（二）&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-15-三维视觉&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-15-三维视觉&#34;&gt;#&lt;/a&gt; Lecture 15 三维视觉&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-16-视觉与语言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-16-视觉与语言&#34;&gt;#&lt;/a&gt; Lecture 16 视觉与语言&lt;/h2&gt;
+&lt;h2 id=&#34;lecture-17-机器人学习&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-17-机器人学习&#34;&gt;#&lt;/a&gt; Lecture 17 机器人学习&lt;/h2&gt;
+&lt;h1 id=&#34;human-centered-applications-and-implications&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#human-centered-applications-and-implications&#34;&gt;#&lt;/a&gt; Human-Centered Applications and Implications&lt;/h1&gt;
+&lt;h2 id=&#34;lecture-18-以人为本的人工智能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lecture-18-以人为本的人工智能&#34;&gt;#&lt;/a&gt; Lecture 18 以人为本的人工智能&lt;/h2&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2026/04/09/MCP/</guid>
             <title>MCP</title>
